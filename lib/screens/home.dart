@@ -5,75 +5,71 @@ import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:get/get.dart';
 import 'package:neon_widgets/neon_widgets.dart';
+import 'package:portfolio/screens/education.dart';
 import 'package:portfolio/utils/constants.dart';
+import 'package:super_bottom_navigation_bar/super_bottom_navigation_bar.dart';
 
 import '../utils/utils.dart';
+import '../widgets/intro.dart';
+import '../widgets/intro_photoview.dart';
+import '../widgets/intro_text.dart';
+import '../widgets/social_icons.dart';
+import 'contact.dart';
+import 'skills.dart';
 
-class Home extends StatefulWidget {
-  const Home({super.key});
+class Dash extends StatefulWidget {
+  const Dash({super.key});
 
   @override
-  State<Home> createState() => _HomeState();
+  State<Dash> createState() => _DashState();
 }
 
-class _HomeState extends State<Home> {
-  int _counter = 0;
+class _DashState extends State<Dash> with TickerProviderStateMixin {
   double _progress = 0.0;
-  Color _progressColor = Colors.red;
-
-  List colorList = [
-    Colors.blue,
-    Colors.yellow,
-    Colors.blueGrey,
-    Colors.red,
-    Colors.blueAccent,
-    Colors.orange,
-    Colors.white,
-    Colors.purple,
-    Colors.greenAccent,
-    Colors.cyan,
-    Colors.green,
-  ];
-
-  void _incrementCounter() {
-    setState(() {
-      _progress += 0.1;
-      _progressColor = colorList[_counter];
-      _counter++;
-    });
-  }
-
-  final scrollController = ScrollController();
-
   double spreadValue = 0;
+  final scrollController = ScrollController();
+  late final tabController;
 
   @override
   void initState() {
     super.initState();
-    scrollController.addListener(() {
-      setState(() {
-        _progress = scrollController.position.pixels /
-            scrollController.position.maxScrollExtent;
-      });
-    });
 
-    setNeonEffectTimer();
+    tabController = TabController(length: 4, vsync: this);
+
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      scrollController.addListener(() {
+        setState(() {
+          _progress = scrollController.position.pixels /
+              scrollController.position.maxScrollExtent;
+        });
+      });
+
+      setNeonEffectTimer();
+    });
   }
 
   setNeonEffectTimer() {
     const oneSec = Duration(seconds: 2);
     Timer.periodic(oneSec, (Timer t) {
-      if (spreadValue == 20) {
+      if (spreadValue == 12) {
+        setState(() {
+          spreadValue = 0;
+        });
+      } else if (spreadValue == 0) {
+        setState(() {
+          spreadValue = 4;
+        });
+      } else if (spreadValue == 4) {
         setState(() {
           spreadValue = 7;
         });
       } else if (spreadValue == 7) {
         setState(() {
-          spreadValue = 14;
+          spreadValue = 10;
         });
       } else {
         setState(() {
-          spreadValue = 20;
+          spreadValue = 12;
         });
       }
     });
@@ -90,128 +86,140 @@ class _HomeState extends State<Home> {
     final isMobile = Utils.getDevice(context) == DeviceType.isMobile;
 
     return Scaffold(
-      backgroundColor: Colors.black,
-      body: Column(
-          mainAxisAlignment: MainAxisAlignment.start,
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: <Widget>[
-            NeonLine(
-                lineWidth: Get.width * _progress,
-                lineHeight: 1,
-                lightSpreadRadius: 10,
-                spreadColor: Colors.white,
-                lineColor: primaryColor),
-            SizedBox(
-              height: Get.height * 0.98,
-              child: SingleChildScrollView(
-                controller: scrollController,
-                child: Column(
-                  children: [
-                    buildIntro(isMobile),
-                    buildSocials(),
-                    buildKnowledgeInfo()
-                  ],
+        backgroundColor: Colors.black,
+        extendBody: true,
+        // bottomSheet: buildTabBar(),
+        bottomNavigationBar: SuperBottomNavigationBar(
+          currentIndex: 2,
+          items: makeNavItems(),
+          onSelected: (index) {
+            print('tab $index');
+          },
+        ),
+        body: Column(
+            mainAxisAlignment: MainAxisAlignment.start,
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: <Widget>[
+              //progressbar
+              Utils.lineProgressBar(_progress),
+              //tabs
+              SizedBox(
+                height: Get.height * 0.85,
+                child: SingleChildScrollView(
+                  controller: scrollController,
+                  child: Column(
+                    children: [
+                      Intro(spreadValue: spreadValue),
+                      const Skills(),
+                      const Education(),
+                      const Contact(),
+                    ],
+                  ),
                 ),
-              ),
-            )
-          ]),
-      floatingActionButton: FloatingActionButton(
-        onPressed: _incrementCounter,
-        tooltip: 'Increment',
-        child: const Icon(Icons.add),
-      ), // This trailing comma makes auto-formatting nicer for build methods.
-    );
+              )
+            ]));
   }
 
-  buildIntro(isMobile) => SizedBox(
-        height: Get.height * 0.9,
-        child: GridView.count(
-            physics: const NeverScrollableScrollPhysics(),
-            crossAxisCount: isMobile ? 1 : 2,
-            crossAxisSpacing: 10.0,
-            mainAxisSpacing: 10.0,
-            children: [
-              SizedBox(
-                height: isMobile ? Get.height * 0.1 : Get.height * 0.3,
-                child: Column(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  mainAxisSize: MainAxisSize.min,
-                  children: <Widget>[
-                    const SizedBox(width: 20.0, height: 10.0),
-                    const Text(
-                      'Playing with this Techs ❣',
-                      style: TextStyle(fontSize: 43.0),
-                    ),
-                    const SizedBox(width: 20.0, height: 10.0),
-                    SizedBox(
-                      height: Get.height * 0.1,
-                      child: DefaultTextStyle(
-                          style: Theme.of(context)
-                              .textTheme
-                              .headlineLarge!
-                              .copyWith(color: textColor),
-                          child: AnimatedTextKit(
-                            isRepeatingAnimation: true,
-                            repeatForever: true,
-                            animatedTexts: [
-                              RotateAnimatedText('FLUTTER'),
-                              RotateAnimatedText('ANDROID'),
-                              RotateAnimatedText('DART'),
-                              RotateAnimatedText('JAVA'),
-                            ],
-                            onTap: () {
-                              print("Tap Event");
-                            },
-                          )),
-                    ),
-                  ],
-                ),
-              ),
-              SizedBox(
-                height: isMobile ? Get.height * 0.7 : Get.height,
-                child: Column(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    Container(
-                      width: Get.width * 0.2,
-                      height: Get.height * 0.4,
-                      decoration: BoxDecoration(
-                          borderRadius: BorderRadius.circular(Get.width * 0.5),
-                          boxShadow: [
-                            BoxShadow(
-                              color: Colors.teal.shade200,
-                              blurRadius: 50,
-                              spreadRadius: spreadValue,
-                            ),
-                          ]),
-                      alignment: Alignment.center,
-                      child:
-                          ClipOval(child: Image.asset("assets/img/vaju.jpg")),
-                    ),
-                  ],
-                ),
-              ),
+  buildTabBar() => Container(
+        color: Colors.black,
+        margin: EdgeInsets.all(20.0),
+        child: TabBar(
+            unselectedLabelColor: Colors.blueGrey,
+            controller: tabController,
+            overlayColor: MaterialStateProperty.all<Color>(Colors.cyan),
+            labelColor: Colors.white,
+            indicator: UnderlineTabIndicator(),
+            onTap: (index) {
+              if (index == 0) {
+                scrollController.animateTo(
+                    scrollController.position.minScrollExtent,
+                    duration: defaultDuration,
+                    curve: Curves.fastLinearToSlowEaseIn);
+              } else if (index == 1) {
+                scrollController.animateTo(Get.height,
+                    duration: defaultDuration,
+                    curve: Curves.fastLinearToSlowEaseIn);
+              } else if (index == 2) {
+                scrollController.animateTo(Get.height * 2,
+                    duration: defaultDuration,
+                    curve: Curves.fastLinearToSlowEaseIn);
+              } else if (index == 3) {
+                scrollController.animateTo(
+                    scrollController.position.maxScrollExtent,
+                    duration: defaultDuration,
+                    curve: Curves.fastLinearToSlowEaseIn);
+              }
+            },
+            tabs: const [
+              Tab(icon: Icon(Icons.home), text: 'Home'),
+              Tab(icon: Icon(Icons.bolt_outlined), text: 'Skills'),
+              Tab(icon: Icon(Icons.book_outlined), text: 'Education'),
+              Tab(icon: Icon(Icons.contact_mail), text: 'Contact'),
             ]),
       );
 
-  buildKnowledgeInfo() => SizedBox(
-        height: Get.height,
-      );
-
-  buildSocials() => SizedBox(
-      height: Get.height * 0.08,
-      child: Row(
-        mainAxisAlignment: MainAxisAlignment.center,
-        children: [
-          buildSocialIcon(FontAwesomeIcons.linkedin, ""),
-          buildSocialIcon(FontAwesomeIcons.instagram, ""),
-          buildSocialIcon(FontAwesomeIcons.facebook, ""),
-          buildSocialIcon(FontAwesomeIcons.twitter, ""),
-        ],
-      ));
-
-  buildSocialIcon(icon, link) => IconButton(
-      icon: FaIcon(icon,
-          size: Get.width * 0.02, color: Theme.of(context).primaryColor),
-      onPressed: () {});
+  List<SuperBottomNavigationBarItem> makeNavItems() {
+    return [
+      SuperBottomNavigationBarItem(
+          unSelectedIcon: Icons.home_outlined,
+          selectedIcon: Icons.home_outlined,
+          size: 30,
+          backgroundShadowColor: Colors.red,
+          borderBottomColor: Colors.red,
+          borderBottomWidth: 3,
+          // highlightColor: Colors.red,
+          // hoverColor: ,
+          splashColor: Colors.red,
+          selectedIconColor: Colors.red,
+          unSelectedIconColor: Colors.red),
+      SuperBottomNavigationBarItem(
+          unSelectedIcon: Icons.search_outlined,
+          selectedIcon: Icons.search_outlined,
+          size: 30,
+          backgroundShadowColor: Colors.blue,
+          borderBottomColor: Colors.blue,
+          borderBottomWidth: 3,
+          // highlightColor: Colors.red,
+          // hoverColor: ,
+          splashColor: Colors.blue,
+          selectedIconColor: Colors.blue,
+          unSelectedIconColor: Colors.blue),
+      SuperBottomNavigationBarItem(
+          unSelectedIcon: Icons.star_border_outlined,
+          selectedIcon: Icons.star_border_outlined,
+          size: 30,
+          backgroundShadowColor: Colors.yellowAccent,
+          borderBottomColor: Colors.yellowAccent,
+          borderBottomWidth: 3,
+          // highlightColor: Colors.red,
+          // hoverColor: ,
+          splashColor: Colors.yellowAccent,
+          selectedIconColor: Colors.yellowAccent,
+          unSelectedIconColor: Colors.yellowAccent),
+      SuperBottomNavigationBarItem(
+          unSelectedIcon: Icons.done_outline_rounded,
+          selectedIcon: Icons.done_outline_rounded,
+          size: 30,
+          backgroundShadowColor: Colors.green,
+          borderBottomColor: Colors.green,
+          borderBottomWidth: 3,
+          // highlightColor: Colors.red,
+          // hoverColor: ,
+          splashColor: Colors.green,
+          selectedIconColor: Colors.green,
+          unSelectedIconColor: Colors.green),
+      SuperBottomNavigationBarItem(
+          unSelectedIcon: Icons.person_outline,
+          selectedIcon: Icons.person_outline,
+          size: 30,
+          backgroundShadowColor: Colors.purpleAccent,
+          borderBottomColor: Colors.purpleAccent,
+          borderBottomWidth: 3,
+          // highlightColor: Colors.red,
+          // hoverColor: ,
+          splashColor: Colors.purpleAccent,
+          selectedIconColor: Colors.purpleAccent,
+          unSelectedIconColor: Colors.purpleAccent),
+    ];
+  }
 }
