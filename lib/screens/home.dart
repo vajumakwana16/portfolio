@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:animated_text_kit/animated_text_kit.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
@@ -43,6 +45,8 @@ class _HomeState extends State<Home> {
 
   final scrollController = ScrollController();
 
+  double spreadValue = 0;
+
   @override
   void initState() {
     super.initState();
@@ -51,6 +55,27 @@ class _HomeState extends State<Home> {
         _progress = scrollController.position.pixels /
             scrollController.position.maxScrollExtent;
       });
+    });
+
+    setNeonEffectTimer();
+  }
+
+  setNeonEffectTimer() {
+    const oneSec = Duration(seconds: 2);
+    Timer.periodic(oneSec, (Timer t) {
+      if (spreadValue == 20) {
+        setState(() {
+          spreadValue = 7;
+        });
+      } else if (spreadValue == 7) {
+        setState(() {
+          spreadValue = 14;
+        });
+      } else {
+        setState(() {
+          spreadValue = 20;
+        });
+      }
     });
   }
 
@@ -79,6 +104,7 @@ class _HomeState extends State<Home> {
             SizedBox(
               height: Get.height * 0.98,
               child: SingleChildScrollView(
+                controller: scrollController,
                 child: Column(
                   children: [
                     buildIntro(isMobile),
@@ -155,7 +181,7 @@ class _HomeState extends State<Home> {
                             BoxShadow(
                               color: Colors.teal.shade200,
                               blurRadius: 50,
-                              spreadRadius: 10,
+                              spreadRadius: spreadValue,
                             ),
                           ]),
                       alignment: Alignment.center,
