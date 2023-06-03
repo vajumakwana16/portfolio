@@ -4,7 +4,6 @@ import 'package:portfolio/utils/utils.dart';
 
 import 'intro_photoview.dart';
 import 'intro_text.dart';
-import 'social_icons.dart';
 
 class Intro extends StatelessWidget {
   final double spreadValue;
@@ -23,6 +22,21 @@ class Intro extends StatelessWidget {
           mainAxisSpacing: 10.0,
           children: [
             SizedBox(
+              height: Get.height * 0.2,
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  IntroPhotoView(
+                      spreadValue: 10.0,
+                      width:
+                          Utils.getDevice(Get.context!) == DeviceType.isMobile
+                              ? Get.width * 0.3
+                              : Get.width * 0.25,
+                      url: ""),
+                ],
+              ),
+            ),
+            SizedBox(
               height: isMobile ? Get.height * 0.1 : Get.height * 0.3,
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.center,
@@ -30,18 +44,7 @@ class Intro extends StatelessWidget {
                 children: [
                   Utils.addVerticalSpace(Get.height * 0.05),
                   const IntroTexts(),
-                  Padding(
-                    padding: EdgeInsets.only(left: Get.width * 0.04),
-                    child: const SocialIcons(),
-                  ),
                 ],
-              ),
-            ),
-            SizedBox(
-              height: isMobile ? Get.height * 0.7 : Get.height * 07,
-              child: Column(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [IntroPhotoView(spreadValue: spreadValue)],
               ),
             ),
           ]),

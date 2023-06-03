@@ -13,7 +13,7 @@ class _EducationState extends State<Education> {
   Widget build(BuildContext context) {
     return Container(
       height: Get.height,
-      color: Colors.green,
+      color: Colors.black,
     );
   }
 }

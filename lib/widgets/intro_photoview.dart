@@ -3,12 +3,18 @@ import 'package:get/get.dart';
 
 class IntroPhotoView extends StatelessWidget {
   final double spreadValue;
-  const IntroPhotoView({super.key, required this.spreadValue});
+  final String url;
+  final double width;
+  const IntroPhotoView(
+      {super.key,
+      required this.spreadValue,
+      required this.url,
+      required this.width});
 
   @override
   Widget build(BuildContext context) {
     return Container(
-      width: Get.width * 0.25,
+      width: width,
       //height: Get.height * 0.4,
       decoration: BoxDecoration(
           borderRadius: BorderRadius.circular(Get.width * 0.5),
@@ -20,7 +26,10 @@ class IntroPhotoView extends StatelessWidget {
             ),
           ]),
       alignment: Alignment.center,
-      child: ClipOval(child: Image.asset("assets/img/vaju.jpg")),
+      child: ClipOval(
+          child: url == ""
+              ? Image.asset("assets/img/vaju.jpg")
+              : Image.network(url)),
     );
   }
 }

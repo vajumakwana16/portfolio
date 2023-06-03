@@ -1,19 +1,13 @@
 import 'dart:async';
 
-import 'package:animated_text_kit/animated_text_kit.dart';
 import 'package:flutter/material.dart';
-import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:get/get.dart';
-import 'package:neon_widgets/neon_widgets.dart';
 import 'package:portfolio/screens/education.dart';
 import 'package:portfolio/utils/constants.dart';
 import 'package:super_bottom_navigation_bar/super_bottom_navigation_bar.dart';
 
 import '../utils/utils.dart';
 import '../widgets/intro.dart';
-import '../widgets/intro_photoview.dart';
-import '../widgets/intro_text.dart';
-import '../widgets/social_icons.dart';
 import 'contact.dart';
 import 'skills.dart';
 
@@ -27,6 +21,7 @@ class Dash extends StatefulWidget {
 class _DashState extends State<Dash> with TickerProviderStateMixin {
   double _progress = 0.0;
   double spreadValue = 0;
+  int _currentIndex = 0;
   final scrollController = ScrollController();
   late final tabController;
 
@@ -51,26 +46,28 @@ class _DashState extends State<Dash> with TickerProviderStateMixin {
   setNeonEffectTimer() {
     const oneSec = Duration(seconds: 2);
     Timer.periodic(oneSec, (Timer t) {
-      if (spreadValue == 12) {
-        setState(() {
-          spreadValue = 0;
-        });
-      } else if (spreadValue == 0) {
-        setState(() {
-          spreadValue = 4;
-        });
-      } else if (spreadValue == 4) {
-        setState(() {
-          spreadValue = 7;
-        });
-      } else if (spreadValue == 7) {
-        setState(() {
-          spreadValue = 10;
-        });
-      } else {
-        setState(() {
-          spreadValue = 12;
-        });
+      if (mounted) {
+        if (spreadValue == 12) {
+          setState(() {
+            spreadValue = 0;
+          });
+        } else if (spreadValue == 0) {
+          setState(() {
+            spreadValue = 4;
+          });
+        } else if (spreadValue == 4) {
+          setState(() {
+            spreadValue = 7;
+          });
+        } else if (spreadValue == 7) {
+          setState(() {
+            spreadValue = 10;
+          });
+        } else {
+          setState(() {
+            spreadValue = 12;
+          });
+        }
       }
     });
   }
@@ -88,23 +85,45 @@ class _DashState extends State<Dash> with TickerProviderStateMixin {
     return Scaffold(
         backgroundColor: Colors.black,
         extendBody: true,
-        // bottomSheet: buildTabBar(),
+        bottomSheet: //progressbar
+            Utils.lineProgressBar(_progress),
         bottomNavigationBar: SuperBottomNavigationBar(
-          currentIndex: 2,
+          curve: Curves.bounceInOut,
+          currentIndex: _currentIndex,
+          backgroundColor: Colors.black,
           items: makeNavItems(),
           onSelected: (index) {
-            print('tab $index');
+            setState(() {
+              _currentIndex = index;
+            });
+            if (index == 0) {
+              scrollController.animateTo(
+                  scrollController.position.minScrollExtent,
+                  duration: defaultDuration,
+                  curve: Curves.fastLinearToSlowEaseIn);
+            } else if (index == 1) {
+              scrollController.animateTo(Get.height,
+                  duration: defaultDuration,
+                  curve: Curves.fastLinearToSlowEaseIn);
+            } else if (index == 2) {
+              scrollController.animateTo(Get.height * 2,
+                  duration: defaultDuration,
+                  curve: Curves.fastLinearToSlowEaseIn);
+            } else if (index == 3) {
+              scrollController.animateTo(
+                  scrollController.position.maxScrollExtent,
+                  duration: defaultDuration,
+                  curve: Curves.fastLinearToSlowEaseIn);
+            }
           },
         ),
         body: Column(
             mainAxisAlignment: MainAxisAlignment.start,
             crossAxisAlignment: CrossAxisAlignment.start,
             children: <Widget>[
-              //progressbar
-              Utils.lineProgressBar(_progress),
               //tabs
               SizedBox(
-                height: Get.height * 0.85,
+                height: Get.height * 0.9,
                 child: SingleChildScrollView(
                   controller: scrollController,
                   child: Column(
@@ -122,13 +141,13 @@ class _DashState extends State<Dash> with TickerProviderStateMixin {
 
   buildTabBar() => Container(
         color: Colors.black,
-        margin: EdgeInsets.all(20.0),
+        margin: const EdgeInsets.all(20.0),
         child: TabBar(
             unselectedLabelColor: Colors.blueGrey,
             controller: tabController,
             overlayColor: MaterialStateProperty.all<Color>(Colors.cyan),
             labelColor: Colors.white,
-            indicator: UnderlineTabIndicator(),
+            indicator: const UnderlineTabIndicator(),
             onTap: (index) {
               if (index == 0) {
                 scrollController.animateTo(
@@ -160,66 +179,54 @@ class _DashState extends State<Dash> with TickerProviderStateMixin {
 
   List<SuperBottomNavigationBarItem> makeNavItems() {
     return [
-      SuperBottomNavigationBarItem(
+      const SuperBottomNavigationBarItem(
           unSelectedIcon: Icons.home_outlined,
-          selectedIcon: Icons.home_outlined,
+          selectedIcon: Icons.home,
           size: 30,
-          backgroundShadowColor: Colors.red,
-          borderBottomColor: Colors.red,
+          backgroundShadowColor: primaryColor,
+          borderBottomColor: primaryColor,
           borderBottomWidth: 3,
           // highlightColor: Colors.red,
           // hoverColor: ,
-          splashColor: Colors.red,
-          selectedIconColor: Colors.red,
-          unSelectedIconColor: Colors.red),
-      SuperBottomNavigationBarItem(
-          unSelectedIcon: Icons.search_outlined,
-          selectedIcon: Icons.search_outlined,
+          splashColor: primaryColor,
+          selectedIconColor: primaryColor,
+          unSelectedIconColor: primaryColor),
+      const SuperBottomNavigationBarItem(
+          unSelectedIcon: Icons.bolt_outlined,
+          selectedIcon: Icons.bolt,
           size: 30,
-          backgroundShadowColor: Colors.blue,
-          borderBottomColor: Colors.blue,
+          backgroundShadowColor: primaryColor,
+          borderBottomColor: primaryColor,
           borderBottomWidth: 3,
           // highlightColor: Colors.red,
           // hoverColor: ,
-          splashColor: Colors.blue,
-          selectedIconColor: Colors.blue,
-          unSelectedIconColor: Colors.blue),
-      SuperBottomNavigationBarItem(
-          unSelectedIcon: Icons.star_border_outlined,
-          selectedIcon: Icons.star_border_outlined,
+          splashColor: primaryColor,
+          selectedIconColor: primaryColor,
+          unSelectedIconColor: primaryColor),
+      const SuperBottomNavigationBarItem(
+          unSelectedIcon: Icons.book_outlined,
+          selectedIcon: Icons.book,
           size: 30,
-          backgroundShadowColor: Colors.yellowAccent,
-          borderBottomColor: Colors.yellowAccent,
+          backgroundShadowColor: primaryColor,
+          borderBottomColor: primaryColor,
           borderBottomWidth: 3,
           // highlightColor: Colors.red,
           // hoverColor: ,
-          splashColor: Colors.yellowAccent,
-          selectedIconColor: Colors.yellowAccent,
-          unSelectedIconColor: Colors.yellowAccent),
-      SuperBottomNavigationBarItem(
-          unSelectedIcon: Icons.done_outline_rounded,
-          selectedIcon: Icons.done_outline_rounded,
+          splashColor: primaryColor,
+          selectedIconColor: primaryColor,
+          unSelectedIconColor: primaryColor),
+      const SuperBottomNavigationBarItem(
+          unSelectedIcon: Icons.contact_mail_outlined,
+          selectedIcon: Icons.contact_mail,
           size: 30,
-          backgroundShadowColor: Colors.green,
-          borderBottomColor: Colors.green,
+          backgroundShadowColor: primaryColor,
+          borderBottomColor: primaryColor,
           borderBottomWidth: 3,
           // highlightColor: Colors.red,
           // hoverColor: ,
-          splashColor: Colors.green,
-          selectedIconColor: Colors.green,
-          unSelectedIconColor: Colors.green),
-      SuperBottomNavigationBarItem(
-          unSelectedIcon: Icons.person_outline,
-          selectedIcon: Icons.person_outline,
-          size: 30,
-          backgroundShadowColor: Colors.purpleAccent,
-          borderBottomColor: Colors.purpleAccent,
-          borderBottomWidth: 3,
-          // highlightColor: Colors.red,
-          // hoverColor: ,
-          splashColor: Colors.purpleAccent,
-          selectedIconColor: Colors.purpleAccent,
-          unSelectedIconColor: Colors.purpleAccent),
+          splashColor: primaryColor,
+          selectedIconColor: primaryColor,
+          unSelectedIconColor: primaryColor)
     ];
   }
 }

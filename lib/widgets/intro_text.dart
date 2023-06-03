@@ -13,32 +13,29 @@ class IntroTexts extends StatelessWidget {
     return Row(
       mainAxisAlignment: MainAxisAlignment.center,
       crossAxisAlignment: CrossAxisAlignment.center,
-      mainAxisSize: MainAxisSize.min,
       children: <Widget>[
         Utils.addHriSpace(Get.width * 0.05),
-        const Text('Playing with ❣', style: TextStyle(fontSize: 43.0)),
+        Text('Playing with ❣',
+            style: Theme.of(context).textTheme.headlineLarge),
         Utils.addHriSpace(Get.width * 0.02),
-        SizedBox(
-          height: Get.width * 0.2,
-          child: DefaultTextStyle(
-              style: Theme.of(context)
-                  .textTheme
-                  .headlineLarge!
-                  .copyWith(color: textColor),
-              child: AnimatedTextKit(
-                isRepeatingAnimation: true,
-                repeatForever: true,
-                animatedTexts: [
-                  RotateAnimatedText('FLUTTER'),
-                  RotateAnimatedText('ANDROID'),
-                  RotateAnimatedText('DART'),
-                  RotateAnimatedText('JAVA'),
-                ],
-                onTap: () {
-                  print("Tap Event");
-                },
-              )),
-        ),
+        DefaultTextStyle(
+            style: Theme.of(context)
+                .textTheme
+                .headlineLarge!
+                .copyWith(color: textColor),
+            child: AnimatedTextKit(
+              isRepeatingAnimation: true,
+              repeatForever: true,
+              animatedTexts: [
+                RotateAnimatedText('FLUTTER'),
+                RotateAnimatedText('ANDROID'),
+                RotateAnimatedText('DART'),
+                RotateAnimatedText('JAVA'),
+              ],
+              onTap: () {
+                print("Tap Event");
+              },
+            )),
       ],
     );
   }
