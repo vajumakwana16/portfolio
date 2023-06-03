@@ -14,7 +14,7 @@ class _ContactState extends State<Contact> {
   @override
   Widget build(BuildContext context) {
     return Container(
-        height: Get.height * 0.8,
+        height: Get.height * 0.9,
         color: Colors.black,
         alignment: Alignment.center,
         child: const SocialIcons());

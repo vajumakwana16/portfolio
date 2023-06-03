@@ -12,7 +12,7 @@ class _EducationState extends State<Education> {
   @override
   Widget build(BuildContext context) {
     return Container(
-      height: Get.height,
+      height: Get.height * 0.9,
       color: Colors.black,
     );
   }

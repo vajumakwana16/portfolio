@@ -117,26 +117,20 @@ class _DashState extends State<Dash> with TickerProviderStateMixin {
             }
           },
         ),
-        body: Column(
-            mainAxisAlignment: MainAxisAlignment.start,
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: <Widget>[
-              //tabs
-              SizedBox(
-                height: Get.height * 0.9,
-                child: SingleChildScrollView(
-                  controller: scrollController,
-                  child: Column(
-                    children: [
-                      Intro(spreadValue: spreadValue),
-                      const Skills(),
-                      const Education(),
-                      const Contact(),
-                    ],
-                  ),
-                ),
-              )
-            ]));
+        body: SizedBox(
+          height: Get.height * 0.9,
+          child: SingleChildScrollView(
+            controller: scrollController,
+            child: Column(
+              children: [
+                Intro(spreadValue: spreadValue),
+                const Skills(),
+                const Education(),
+                const Contact(),
+              ],
+            ),
+          ),
+        ));
   }
 
   buildTabBar() => Container(

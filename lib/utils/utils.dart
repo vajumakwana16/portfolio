@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:neon_widgets/neon_widgets.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 import 'constants.dart';
 
@@ -31,4 +32,13 @@ class Utils {
         spreadColor: Colors.white,
         lineColor: primaryColor,
       );
+
+  //launch url
+  static Future<void> launchWebUrl(url) async {
+    try {
+      await launchUrl(Uri.parse(url));
+    } catch (e) {
+      print(e.toString());
+    }
+  }
 }

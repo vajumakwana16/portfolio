@@ -22,6 +22,17 @@ class Intro extends StatelessWidget {
           mainAxisSpacing: 10.0,
           children: [
             SizedBox(
+              height: isMobile ? Get.height * 0.1 : Get.height * 0.3,
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Utils.addVerticalSpace(Get.height * 0.05),
+                  const IntroTexts(),
+                ],
+              ),
+            ),
+            SizedBox(
               height: Get.height * 0.2,
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.center,
@@ -33,17 +44,6 @@ class Intro extends StatelessWidget {
                               ? Get.width * 0.3
                               : Get.width * 0.25,
                       url: ""),
-                ],
-              ),
-            ),
-            SizedBox(
-              height: isMobile ? Get.height * 0.1 : Get.height * 0.3,
-              child: Column(
-                mainAxisAlignment: MainAxisAlignment.center,
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Utils.addVerticalSpace(Get.height * 0.05),
-                  const IntroTexts(),
                 ],
               ),
             ),

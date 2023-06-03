@@ -10,7 +10,7 @@ List<Tech> technologiesList = [
 class Tech {
   final String name;
   final String definition;
-  final int progress;
+  final double progress;
 
   Tech(this.name, this.definition, this.progress);
 }
