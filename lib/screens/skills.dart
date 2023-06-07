@@ -15,9 +15,9 @@ class _SkillsState extends State<Skills> {
   @override
   Widget build(BuildContext context) {
     return Container(
-      height: Get.height * 0.9,
+      // height: Get.height,
       color: Colors.black,
-      child: SkillItems(),
+      child: const SkillItems(),
     );
   }
 }
@@ -27,35 +27,78 @@ class SkillItems extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    List<Widget> contactItems = [
-      // buildSkillItem( ""),
-      // buildSkillItem(""),
-      // buildSkillItem(""),
-      // buildSkillItem(""),
-    ];
-
     bool isMobile = Utils.getDevice(context) == DeviceType.isMobile;
 
-    return GridView.count(
-        shrinkWrap: true,
-        crossAxisCount: isMobile ? 2 : 4,
-        children: technologiesList.map((e) => buildSkillItem(e)).toList());
+    return Wrap(children: [
+      Center(
+          child:
+              Text("Skills", style: Theme.of(context).textTheme.headlineLarge)),
+      GridView.count(
+          shrinkWrap: true,
+          crossAxisCount: isMobile ? 3 : 5,
+          crossAxisSpacing: Get.width * 0.02,
+          mainAxisSpacing: Get.width * 0.02,
+          padding: const EdgeInsets.all(5),
+          children: technologiesList.map((e) => buildSkillItem(e)).toList()),
+    ]);
   }
 
-  Widget buildSkillItem(Tech skill) => SizedBox(
+  Widget buildSkillItem(Skill skill) => SizedBox(
+        width: Get.width * 0.3,
+        height: Get.width * 0.3,
         child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
           crossAxisAlignment: CrossAxisAlignment.center,
           children: [
-            Stack(children: [
-              SizedBox(
-                  width: Get.width * 0.05,
-                  height: Get.width * 0.05,
-                  child: CircularProgressIndicator(value: skill.progress)),
-              Text(skill.name),
-              Text(skill.definition),
-              Text("${skill.progress} %"),
-            ])
+            Column(
+              children: <Widget>[
+                Center(
+                  child: SizedBox(
+                    child: Stack(
+                      alignment: Alignment.center,
+                      children: <Widget>[
+                        Center(
+                          child: SizedBox(
+                            width: Utils.getDevice(Get.context!) ==
+                                    DeviceType.isMobile
+                                ? Get.width * 0.2
+                                : Get.width * 0.1,
+                            height: Utils.getDevice(Get.context!) ==
+                                    DeviceType.isMobile
+                                ? Get.width * 0.2
+                                : Get.width * 0.1,
+                            child: CircularProgressIndicator(
+                              strokeWidth: 10,
+                              value: skill.progress / 100,
+                              backgroundColor: Colors.grey,
+                            ),
+                          ),
+                        ),
+                        Center(
+                            child: SizedBox(
+                                width: Get.width * 0.18,
+                                height: Get.width * 0.18,
+                                child: Column(
+                                  mainAxisAlignment: MainAxisAlignment.center,
+                                  crossAxisAlignment: CrossAxisAlignment.center,
+                                  children: [
+                                    SizedBox(
+                                        height: Get.width * 0.05,
+                                        width: Get.width * 0.05,
+                                        child: skill.logo),
+                                    Text(skill.name),
+                                  ],
+                                ))),
+                      ],
+                    ),
+                  ),
+                ),
+                // Padding(
+                //   padding: const EdgeInsets.all(10.0),
+                //   child: Text("${skill.progress} %"),
+                // ),
+              ],
+            )
           ],
         ),
       );

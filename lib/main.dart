@@ -12,7 +12,7 @@ class MyApp extends StatelessWidget {
   MyApp({super.key});
 
   // This widget is the root of your application.
-  final fontStyle = TextStyle(color: Colors.white);
+  final fontStyle = const TextStyle(color: Colors.white);
   @override
   Widget build(BuildContext context) {
     return GetMaterialApp(

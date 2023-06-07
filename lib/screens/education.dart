@@ -11,9 +11,13 @@ class Education extends StatefulWidget {
 class _EducationState extends State<Education> {
   @override
   Widget build(BuildContext context) {
-    return Container(
-      height: Get.height * 0.9,
-      color: Colors.black,
-    );
+    return Wrap(children: [
+      Center(
+          child: Text("Education",
+              style: Theme.of(context).textTheme.headlineLarge)),
+      Container(
+        height: Get.height,
+      )
+    ]);
   }
 }

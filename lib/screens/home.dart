@@ -85,8 +85,7 @@ class _DashState extends State<Dash> with TickerProviderStateMixin {
     return Scaffold(
         backgroundColor: Colors.black,
         extendBody: true,
-        bottomSheet: //progressbar
-            Utils.lineProgressBar(_progress),
+        bottomSheet: Utils.lineProgressBar(_progress),
         bottomNavigationBar: SuperBottomNavigationBar(
           curve: Curves.bounceInOut,
           currentIndex: _currentIndex,
@@ -118,7 +117,7 @@ class _DashState extends State<Dash> with TickerProviderStateMixin {
           },
         ),
         body: SizedBox(
-          height: Get.height * 0.9,
+          height: Get.height,
           child: SingleChildScrollView(
             controller: scrollController,
             child: Column(

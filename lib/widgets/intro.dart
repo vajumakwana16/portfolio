@@ -14,8 +14,8 @@ class Intro extends StatelessWidget {
     final isMobile = Utils.getDevice(context) == DeviceType.isMobile;
 
     return SizedBox(
-      height: Get.height * 0.9,
       child: GridView.count(
+          shrinkWrap: true,
           physics: const NeverScrollableScrollPhysics(),
           crossAxisCount: isMobile ? 1 : 2,
           crossAxisSpacing: 10.0,
