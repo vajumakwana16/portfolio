@@ -9,27 +9,25 @@ import 'package:super_bottom_navigation_bar/super_bottom_navigation_bar.dart';
 import '../utils/utils.dart';
 import '../widgets/intro.dart';
 import 'contact.dart';
+import 'experience.dart';
 import 'skills.dart';
 
-class Dash extends StatefulWidget {
-  const Dash({super.key});
+class Home extends StatefulWidget {
+  const Home({super.key});
 
   @override
-  State<Dash> createState() => _DashState();
+  State<Home> createState() => _HomeState();
 }
 
-class _DashState extends State<Dash> with TickerProviderStateMixin {
+class _HomeState extends State<Home> {
   double _progress = 0.0;
   double spreadValue = 0;
   int _currentIndex = 0;
   final scrollController = ScrollController();
-  late final tabController;
 
   @override
   void initState() {
     super.initState();
-
-    tabController = TabController(length: 4, vsync: this);
 
     WidgetsBinding.instance.addPostFrameCallback((_) {
       scrollController.addListener(() {
@@ -78,6 +76,12 @@ class _DashState extends State<Dash> with TickerProviderStateMixin {
     scrollController.dispose();
   }
 
+  final skillKey = GlobalKey();
+  final educationKey = GlobalKey();
+  final experienceKey = GlobalKey();
+
+  final animateDuration = const Duration(seconds: 1);
+
   @override
   Widget build(BuildContext context) {
     final isMobile = Utils.getDevice(context) == DeviceType.isMobile;
@@ -101,14 +105,20 @@ class _DashState extends State<Dash> with TickerProviderStateMixin {
                   duration: defaultDuration,
                   curve: Curves.fastLinearToSlowEaseIn);
             } else if (index == 1) {
-              scrollController.animateTo(Get.height,
+              //Scrollable.of(skillKey.currentContext!).deltaToScrollOrigin
+
+              Scrollable.ensureVisible(skillKey.currentContext!,
+                  curve: Curves.easeInToLinear, duration: animateDuration);
+              /* scrollController.animateTo(Get.height,
                   duration: defaultDuration,
-                  curve: Curves.fastLinearToSlowEaseIn);
+                  curve: Curves.fastLinearToSlowEaseIn);*/
             } else if (index == 2) {
-              scrollController.animateTo(Get.height * 2,
-                  duration: defaultDuration,
-                  curve: Curves.fastLinearToSlowEaseIn);
+              Scrollable.ensureVisible(educationKey.currentContext!,
+                  curve: Curves.easeInToLinear, duration: animateDuration);
             } else if (index == 3) {
+              Scrollable.ensureVisible(experienceKey.currentContext!,
+                  curve: Curves.easeInToLinear, duration: animateDuration);
+            } else if (index == 4) {
               scrollController.animateTo(
                   scrollController.position.maxScrollExtent,
                   duration: defaultDuration,
@@ -123,52 +133,15 @@ class _DashState extends State<Dash> with TickerProviderStateMixin {
             child: Column(
               children: [
                 Intro(spreadValue: spreadValue),
-                const Skills(),
-                const Education(),
+                Skills(key: skillKey),
+                Education(key: educationKey),
+                Experience(key: experienceKey),
                 const Contact(),
               ],
             ),
           ),
         ));
   }
-
-  buildTabBar() => Container(
-        color: Colors.black,
-        margin: const EdgeInsets.all(20.0),
-        child: TabBar(
-            unselectedLabelColor: Colors.blueGrey,
-            controller: tabController,
-            overlayColor: MaterialStateProperty.all<Color>(Colors.cyan),
-            labelColor: Colors.white,
-            indicator: const UnderlineTabIndicator(),
-            onTap: (index) {
-              if (index == 0) {
-                scrollController.animateTo(
-                    scrollController.position.minScrollExtent,
-                    duration: defaultDuration,
-                    curve: Curves.fastLinearToSlowEaseIn);
-              } else if (index == 1) {
-                scrollController.animateTo(Get.height,
-                    duration: defaultDuration,
-                    curve: Curves.fastLinearToSlowEaseIn);
-              } else if (index == 2) {
-                scrollController.animateTo(Get.height * 2,
-                    duration: defaultDuration,
-                    curve: Curves.fastLinearToSlowEaseIn);
-              } else if (index == 3) {
-                scrollController.animateTo(
-                    scrollController.position.maxScrollExtent,
-                    duration: defaultDuration,
-                    curve: Curves.fastLinearToSlowEaseIn);
-              }
-            },
-            tabs: const [
-              Tab(icon: Icon(Icons.home), text: 'Home'),
-              Tab(icon: Icon(Icons.bolt_outlined), text: 'Skills'),
-              Tab(icon: Icon(Icons.book_outlined), text: 'Education'),
-              Tab(icon: Icon(Icons.contact_mail), text: 'Contact'),
-            ]),
-      );
 
   List<SuperBottomNavigationBarItem> makeNavItems() {
     return [
@@ -199,6 +172,18 @@ class _DashState extends State<Dash> with TickerProviderStateMixin {
       const SuperBottomNavigationBarItem(
           unSelectedIcon: Icons.book_outlined,
           selectedIcon: Icons.book,
+          size: 30,
+          backgroundShadowColor: primaryColor,
+          borderBottomColor: primaryColor,
+          borderBottomWidth: 3,
+          // highlightColor: Colors.red,
+          // hoverColor: ,
+          splashColor: primaryColor,
+          selectedIconColor: primaryColor,
+          unSelectedIconColor: primaryColor),
+      const SuperBottomNavigationBarItem(
+          unSelectedIcon: Icons.work_history_outlined,
+          selectedIcon: Icons.work_history,
           size: 30,
           backgroundShadowColor: primaryColor,
           borderBottomColor: primaryColor,

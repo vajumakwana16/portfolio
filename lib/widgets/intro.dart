@@ -13,41 +13,36 @@ class Intro extends StatelessWidget {
   Widget build(BuildContext context) {
     final isMobile = Utils.getDevice(context) == DeviceType.isMobile;
 
-    return SizedBox(
-      child: GridView.count(
-          shrinkWrap: true,
-          physics: const NeverScrollableScrollPhysics(),
-          crossAxisCount: isMobile ? 1 : 2,
-          crossAxisSpacing: 10.0,
-          mainAxisSpacing: 10.0,
-          children: [
-            SizedBox(
-              height: isMobile ? Get.height * 0.1 : Get.height * 0.3,
-              child: Column(
-                mainAxisAlignment: MainAxisAlignment.center,
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Utils.addVerticalSpace(Get.height * 0.05),
-                  const IntroTexts(),
-                ],
-              ),
-            ),
-            SizedBox(
-              height: Get.height * 0.2,
-              child: Column(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  IntroPhotoView(
-                      spreadValue: 10.0,
-                      width:
-                          Utils.getDevice(Get.context!) == DeviceType.isMobile
-                              ? Get.width * 0.3
-                              : Get.width * 0.25,
-                      url: ""),
-                ],
-              ),
-            ),
-          ]),
-    );
+    return Container(
+        margin: EdgeInsets.symmetric(horizontal: Get.width * 0.1),
+        height: Get.height,
+        child: isMobile
+            ? Column(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                crossAxisAlignment: CrossAxisAlignment.center,
+                children: introWidgets(isMobile))
+            : Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                crossAxisAlignment: CrossAxisAlignment.center,
+                children: introWidgets(isMobile)));
+  }
+
+  List<Widget> introWidgets(isMobile) {
+    return [
+      SizedBox(
+        height: Get.height * 0.3,
+        child: const IntroTexts(),
+      ),
+      SizedBox(
+          height: Get.height * 0.7,
+          child: Column(mainAxisAlignment: MainAxisAlignment.center, children: [
+            IntroPhotoView(
+                spreadValue: 10.0,
+                width: Utils.getDevice(Get.context!) == DeviceType.isMobile
+                    ? Get.width * 0.5
+                    : Get.width * 0.25,
+                url: ""),
+          ]))
+    ];
   }
 }

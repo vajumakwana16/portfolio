@@ -21,7 +21,7 @@ class MyApp extends StatelessWidget {
             primarySwatch: Colors.cyan,
             textTheme: GoogleFonts.poppinsTextTheme(Theme.of(context).textTheme)
                 .apply(bodyColor: Colors.white, displayColor: Colors.white)),
-        home: const Dash(),
+        home: const Home(),
         debugShowCheckedModeBanner: false);
   }
 }

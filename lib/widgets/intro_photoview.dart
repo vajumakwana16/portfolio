@@ -20,9 +20,9 @@ class IntroPhotoView extends StatelessWidget {
           borderRadius: BorderRadius.circular(Get.width * 0.5),
           boxShadow: [
             BoxShadow(
-              color: Colors.teal.shade200,
-              blurRadius: 50,
-              spreadRadius: spreadValue,
+              color: Colors.cyan,
+              blurRadius: 60,
+              spreadRadius: 0.01,
             ),
           ]),
       alignment: Alignment.center,
