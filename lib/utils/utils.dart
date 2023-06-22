@@ -20,6 +20,13 @@ class Utils {
     }
   }
 
+  //build page title
+  static buildPageTitle(BuildContext context, String title) => Center(
+          child: Padding(
+        padding: EdgeInsets.all(Get.width * 0.02),
+        child: Text(title, style: Theme.of(context).textTheme.headlineLarge),
+      ));
+
   //space
   static addVerticalSpace(height) => SizedBox(height: height);
   static addHriSpace(width) => SizedBox(width: width);

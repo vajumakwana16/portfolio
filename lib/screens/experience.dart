@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
+import '../utils/utils.dart';
+
 class Experience extends StatefulWidget {
   const Experience({Key? key}) : super(key: key);
 
@@ -12,9 +14,7 @@ class _ExperienceState extends State<Experience> {
   @override
   Widget build(BuildContext context) {
     return Wrap(children: [
-      Center(
-          child: Text("Experience",
-              style: Theme.of(context).textTheme.headlineLarge)),
+      Utils.buildPageTitle(context, "Experience"),
       Container(
         height: Get.height,
       )

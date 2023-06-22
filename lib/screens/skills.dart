@@ -31,9 +31,7 @@ class SkillItems extends StatelessWidget {
 
     return SizedBox(
       child: Wrap(alignment: WrapAlignment.spaceBetween, children: [
-        Center(
-            child: Text("Skills",
-                style: Theme.of(context).textTheme.headlineLarge)),
+        Utils.buildPageTitle(context, "Skills"),
         Utils.addVerticalSpace(Get.height * 0.1),
         GridView.count(
             shrinkWrap: true,

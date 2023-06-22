@@ -150,7 +150,7 @@ class _HomeScreenState extends State<HomeScreen>
               color: Colors.transparent,
             ),
           ),
-          Utils.powered(),
+          UtilsParallex.powered(),
           Center(
             child: Transform(
               transform: Matrix4.identity()
@@ -255,7 +255,7 @@ class _HomeScreenState extends State<HomeScreen>
   }
 }
 
-class Utils {
+class UtilsParallex {
   static const MaterialColor white = MaterialColor(
     0xFFFFFFFF,
     <int, Color>{

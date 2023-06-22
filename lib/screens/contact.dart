@@ -45,7 +45,7 @@ class _ContactFormState extends State<ContactForm> {
         mainAxisAlignment: MainAxisAlignment.center,
         crossAxisAlignment: CrossAxisAlignment.center,
         children: [
-          Text("Contact", style: Theme.of(context).textTheme.headlineLarge),
+          Utils.buildPageTitle(context, "Contact"),
           buildField(icon: Icons.person, hint: 'Name'),
           buildField(icon: Icons.email, hint: 'Email'),
           buildField(icon: Icons.message, hint: 'Message'),

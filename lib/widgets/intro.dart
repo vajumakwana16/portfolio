@@ -14,7 +14,7 @@ class Intro extends StatelessWidget {
     final isMobile = Utils.getDevice(context) == DeviceType.isMobile;
 
     return Container(
-        margin: EdgeInsets.symmetric(horizontal: Get.width * 0.1),
+        margin: EdgeInsets.symmetric(horizontal: Get.width * 0.05),
         height: Get.height,
         child: isMobile
             ? Column(
