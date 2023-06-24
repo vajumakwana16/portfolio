@@ -16,7 +16,7 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return GetMaterialApp(
-        title: 'Flutter Demo',
+        title: 'Vaju Makwana',
         theme: ThemeData(
             primarySwatch: Colors.cyan,
             textTheme: GoogleFonts.poppinsTextTheme(Theme.of(context).textTheme)

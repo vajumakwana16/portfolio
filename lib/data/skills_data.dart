@@ -6,7 +6,7 @@ List<Skill> technologiesList = [
   Skill("Java", "definition", 80, Image.asset("assets/logos/java.png")),
   Skill("PHP", "definition", 60, Image.asset("assets/logos/php.png")),
   Skill("JavaScript", "definition", 45,
-      Image.asset("assets/logos/javaScript.png")),
+      Image.asset("assets/logos/javascript.png")),
   Skill(
       "BootStrap", "definition", 40, Image.asset("assets/logos/bootstrap.png")),
   Skill("HTML", "definition", 40, Image.asset("assets/logos/html.png")),

@@ -29,18 +29,19 @@ class Intro extends StatelessWidget {
 
   List<Widget> introWidgets(isMobile) {
     return [
+      if (isMobile) SizedBox(height: Get.height * 0.1),
       SizedBox(
-        height: Get.height * 0.3,
-        child: const IntroTexts(),
+        height: Get.height * 0.2,
+        child: const Center(child: IntroTexts()),
       ),
       SizedBox(
-          height: Get.height * 0.7,
+          height: isMobile ? Get.height * 0.7 : Get.height * 0.7,
           child: Column(mainAxisAlignment: MainAxisAlignment.center, children: [
             IntroPhotoView(
                 spreadValue: 10.0,
                 width: Utils.getDevice(Get.context!) == DeviceType.isMobile
-                    ? Get.width * 0.5
-                    : Get.width * 0.25,
+                    ? Get.width * 0.7
+                    : Get.width * 0.3,
                 url: ""),
           ]))
     ];

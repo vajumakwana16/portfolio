@@ -113,10 +113,10 @@ class _HomeState extends State<Home> {
                   duration: defaultDuration,
                   curve: Curves.fastLinearToSlowEaseIn);*/
             } else if (index == 2) {
-              Scrollable.ensureVisible(educationKey.currentContext!,
+              Scrollable.ensureVisible(experienceKey.currentContext!,
                   curve: Curves.easeInToLinear, duration: animateDuration);
             } else if (index == 3) {
-              Scrollable.ensureVisible(experienceKey.currentContext!,
+              Scrollable.ensureVisible(educationKey.currentContext!,
                   curve: Curves.easeInToLinear, duration: animateDuration);
             } else if (index == 4) {
               scrollController.animateTo(
@@ -134,8 +134,8 @@ class _HomeState extends State<Home> {
               children: [
                 Intro(spreadValue: spreadValue),
                 Skills(key: skillKey),
-                Education(key: educationKey),
                 Experience(key: experienceKey),
+                Education(key: educationKey),
                 const Contact(),
               ],
             ),
@@ -170,8 +170,8 @@ class _HomeState extends State<Home> {
           selectedIconColor: primaryColor,
           unSelectedIconColor: primaryColor),
       const SuperBottomNavigationBarItem(
-          unSelectedIcon: Icons.book_outlined,
-          selectedIcon: Icons.book,
+          unSelectedIcon: Icons.work_history_outlined,
+          selectedIcon: Icons.work_history,
           size: 30,
           backgroundShadowColor: primaryColor,
           borderBottomColor: primaryColor,
@@ -182,8 +182,8 @@ class _HomeState extends State<Home> {
           selectedIconColor: primaryColor,
           unSelectedIconColor: primaryColor),
       const SuperBottomNavigationBarItem(
-          unSelectedIcon: Icons.work_history_outlined,
-          selectedIcon: Icons.work_history,
+          unSelectedIcon: Icons.school_outlined,
+          selectedIcon: Icons.school,
           size: 30,
           backgroundShadowColor: primaryColor,
           borderBottomColor: primaryColor,

@@ -35,7 +35,7 @@ class SocialIcons extends StatelessWidget {
   }
 
   buildSocialIcon(icon, url) => SizedBox(
-        height: Get.width * 0.1,
+        height: Get.width * 0.2,
         width: Get.width * 0.1,
         child: ClipRRect(
           borderRadius: BorderRadius.circular(20.0),

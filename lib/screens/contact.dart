@@ -16,14 +16,15 @@ class _ContactState extends State<Contact> {
   @override
   Widget build(BuildContext context) {
     return Container(
-        height: Get.height * 0.9,
+        height: Get.height,
         color: Colors.black,
         alignment: Alignment.center,
-        child: const Column(
+        child: Column(
           mainAxisAlignment: MainAxisAlignment.spaceAround,
           children: [
-            ContactForm(),
-            SocialIcons(),
+            const ContactForm(),
+            const SocialIcons(),
+            SizedBox(height: Get.height * 0.1)
           ],
         ));
   }
@@ -39,25 +40,31 @@ class ContactForm extends StatefulWidget {
 class _ContactFormState extends State<ContactForm> {
   @override
   Widget build(BuildContext context) {
-    return Center(
-      child: Form(
-          child: Column(
-        mainAxisAlignment: MainAxisAlignment.center,
-        crossAxisAlignment: CrossAxisAlignment.center,
+    return SizedBox(
+      height: Get.height * 0.7,
+      child: Column(
+        mainAxisAlignment: MainAxisAlignment.spaceAround,
         children: [
           Utils.buildPageTitle(context, "Contact"),
-          buildField(icon: Icons.person, hint: 'Name'),
-          buildField(icon: Icons.email, hint: 'Email'),
-          buildField(icon: Icons.message, hint: 'Message'),
-          ElevatedButton(
-              onPressed: () => Utils.sendEmail(), child: Text("Submit"))
+          Form(
+              child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            crossAxisAlignment: CrossAxisAlignment.center,
+            children: [
+              buildField(icon: Icons.person, hint: 'Name'),
+              buildField(icon: Icons.email, hint: 'Email'),
+              buildField(icon: Icons.message, hint: 'Message'),
+              ElevatedButton(
+                  onPressed: () => Utils.sendEmail(), child: Text("Submit"))
+            ],
+          )),
         ],
-      )),
+      ),
     );
   }
 
   buildField({required IconData icon, required String hint}) => SizedBox(
-      width: Get.width * 0.8,
+      width: Get.width * 0.9,
       child: Padding(
         padding: EdgeInsets.all(Get.height * 0.02),
         child: TextFormField(

@@ -29,18 +29,30 @@ class SkillItems extends StatelessWidget {
   Widget build(BuildContext context) {
     bool isMobile = Utils.getDevice(context) == DeviceType.isMobile;
 
-    return SizedBox(
-      child: Wrap(alignment: WrapAlignment.spaceBetween, children: [
-        Utils.buildPageTitle(context, "Skills"),
-        Utils.addVerticalSpace(Get.height * 0.1),
-        GridView.count(
-            shrinkWrap: true,
-            crossAxisCount: isMobile ? 3 : 5,
-            crossAxisSpacing: Get.width * 0.02,
-            mainAxisSpacing: Get.width * 0.02,
-            padding: const EdgeInsets.all(5),
-            children: technologiesList.map((e) => buildSkillItem(e)).toList()),
-      ]),
+    return SafeArea(
+      child: SizedBox(
+        height: Get.height,
+        child: SingleChildScrollView(
+          child: Column(
+              mainAxisAlignment: MainAxisAlignment.spaceAround,
+              children: [
+                Utils.buildPageTitle(context, "Skills"),
+                SizedBox(
+                  height: Get.height * 0.8,
+                  child: GridView.count(
+                      shrinkWrap: true,
+                      crossAxisCount: isMobile ? 2 : 5,
+                      crossAxisSpacing: Get.width * 0.02,
+                      mainAxisSpacing: Get.width * 0.02,
+                      padding: const EdgeInsets.symmetric(
+                          horizontal: 5, vertical: 30),
+                      children: technologiesList
+                          .map((e) => buildSkillItem(e))
+                          .toList()),
+                ),
+              ]),
+        ),
+      ),
     );
   }
 
@@ -62,11 +74,11 @@ class SkillItems extends StatelessWidget {
                           child: SizedBox(
                             width: Utils.getDevice(Get.context!) ==
                                     DeviceType.isMobile
-                                ? Get.width * 0.2
+                                ? Get.width * 0.25
                                 : Get.width * 0.1,
                             height: Utils.getDevice(Get.context!) ==
                                     DeviceType.isMobile
-                                ? Get.width * 0.2
+                                ? Get.width * 0.25
                                 : Get.width * 0.1,
                             child: TweenAnimationBuilder(
                                 curve: Curves.fastOutSlowIn,
@@ -96,13 +108,9 @@ class SkillItems extends StatelessWidget {
                           ),
                         ),
                         Center(
-                            child: Container(
+                            child: SizedBox(
                                 width: Get.width * 0.18,
                                 height: Get.width * 0.18,
-                                /*decoration: BoxDecoration(
-                                    color: Colors.black,
-                                    borderRadius:
-                                        BorderRadius.circular(Get.width * 0.5)),*/
                                 child: Column(
                                   mainAxisAlignment: MainAxisAlignment.center,
                                   crossAxisAlignment: CrossAxisAlignment.center,
@@ -111,17 +119,18 @@ class SkillItems extends StatelessWidget {
                                         height: Get.width * 0.05,
                                         width: Get.width * 0.05,
                                         child: skill.logo),
-                                    Text(skill.name),
+                                    Text(
+                                      skill.name,
+                                      style: Theme.of(Get.context!)
+                                          .textTheme
+                                          .bodySmall,
+                                    ),
                                   ],
                                 ))),
                       ],
                     ),
                   ),
                 ),
-                // Padding(
-                //   padding: const EdgeInsets.all(10.0),
-                //   child: Text("${skill.progress} %"),
-                // ),
               ],
             )
           ],
