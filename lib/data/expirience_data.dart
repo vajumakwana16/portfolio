@@ -1,30 +1,43 @@
 import 'package:stepper_list_view/stepper_list_view.dart';
 
-List<StepperItemData> educationData = [
+List<StepperItemData> experienceData = [
+  StepperItemData(
+    id: '2',
+    content: ({
+      'name': 'Smart WebTech',
+      'occupation': 'Flutter Developer',
+      'Grade': '',
+      "duration": 'Apr 2022 - Present',
+      "contact_list": {
+        "website": "https://www.smart-webtech.com/",
+      }
+    }),
+    avatar: 'assets/logos/swt.png',
+  ),
   StepperItemData(
     id: '1',
     content: ({
-      'name': 'B H Gardi College of Engineering & Technology',
-      'occupation': 'Computer Engineering',
-      'Grade': '7.43 CGPA',
-      "duration": 'Apr 2021 - Jan 2024',
+      'name': 'Smart WebTech',
+      'occupation': 'Android Developer',
+      'Grade': '',
+      "duration": 'Jan 2022 - Present',
       "contact_list": {
-        "website": "https://www.gardividyapith.ac.in/",
+        "website": "",
       }
     }),
-    avatar: 'assets/logos/gvp.png',
+    avatar: 'assets/logos/swt.png',
   ),
   StepperItemData(
     id: '0',
     content: ({
-      'name': 'Government Polytechnic Jamnagar',
-      'occupation': 'Computer Engineering',
+      'name': 'Smart WebTech',
+      'occupation': 'Web Developer',
       'Grade': '7.43 CGPA',
-      "duration": 'Jan 2018 - Jan 2021',
+      "duration": 'Dec 2021 - Jan 2022',
       "contact_list": {
-        "website": "http://www.gpjm.cteguj.in/",
+        "website": "",
       }
     }),
-    avatar: 'assets/logos/gpj.png',
+    avatar: 'assets/logos/swt.png',
   )
 ];
